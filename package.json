@@ -1,0 +1,11 @@
+{
+  "name": "engaging-with-collections",
+  "description": "Engaging with collections",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "express": "^4.17.0",
+    "ws": "^7.0.0"
+  }
+}
