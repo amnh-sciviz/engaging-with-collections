@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>3d sprite test</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="../shared/css/vendor/normalize.css">
+  <style type="text/css">
+    body {
+      background: black;
+      color: white;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<script src="../shared/js/vendor/three-r113.min.js"></script>
+<script>
+// Init renderers
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+
+// init scene
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+var controls = new THREE.OrbitControls( camera, renderer.domElement );
+camera.position.set( 0, 20, 100 );
+controls.update();
+
+// add lights
+scene.fog = new THREE.Fog( 0x050505, 2000, 3500 );
+scene.add( new THREE.AmbientLight( 0x444444 ) );
+var light1 = new THREE.DirectionalLight( 0xffffff, 0.5 );
+light1.position.set( 1, 1, 1 );
+scene.add( light1 );
+var light2 = new THREE.DirectionalLight( 0xffffff, 1.5 );
+light2.position.set( 0, - 1, 0 );
+scene.add( light2 );
+
+// init geometry
+var geometry = new THREE.BufferGeometry();
+var positions = [];
+var normals = [];
+var colors = [];
+var color = new THREE.Color();
+
+var rows = 4;
+var cols = 4;
+var width = 12;
+var height = 12;
+var z = 0;
+
+for (var yi=0; yi<rows; yi++) {
+  for (var xi=0; xi<cols; xi++) {
+    var x1 = xi * width;
+    var y1 = yi * height;
+
+    positions.push( x1, y1, z );
+    positions.push( x1, y1+height, z );
+    positions.push( x1+width, y1+height, z );
+    positions.push( x1+width, y1, z );
+  }
+}
+
+function animate(){
+  requestAnimationFrame( animate );
+  controls.update();
+  renderer.render( scene, camera );
+}
+</script>
+
+</body>
+
+</html>
