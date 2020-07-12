@@ -121,7 +121,7 @@ class Atlas {
     }
 
     addMesh(mesh) {
-        console.log(mesh.mesh)
+        // console.log(mesh.mesh)
         this.container.add(mesh.mesh);
         this.meshes.push(mesh);
 

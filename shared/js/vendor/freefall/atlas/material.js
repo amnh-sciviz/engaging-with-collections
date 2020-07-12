@@ -77,27 +77,27 @@ var MaterialFragmentShader = `
   void main() {
 
     if( length( vColor ) < .1 )discard;
-    
+
     gl_FragColor = vec4( 0., 0., 0., 1. );
-    
+
     vec4 diffuseColor = texture2D( map, vUv) * vec4(vColor, 1.0) * vTween;
     gl_FragColor += diffuseColor;
 
-     
+
     if( renderUidColor == 1. ){
-        
+
         gl_FragColor = vec4( vUidColor, 1. );
-        
+
     }
 
     /*
     else{
-    
+
         //fog
         float depth = gl_FragCoord.z / gl_FragCoord.w;
         float d = clamp( 0., 1., pow( depth * ( 1./fogDistance ), 2. ) );
         if( d >= 1. ) discard;
-    
+
         vec4 diffuseColor = texture2D(map, vUv);
         gl_FragColor = diffuseColor * vec4(vColor, 1.0) * vTween;
         gl_FragColor.rgb = mix( gl_FragColor.rgb, fogColor, d );
