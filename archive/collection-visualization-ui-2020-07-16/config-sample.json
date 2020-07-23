@@ -1,0 +1,92 @@
+{
+  "name": "sample",
+
+  "metadata": {
+    "src": "E:/Dropbox/amnh/Knight2020/data/all_normalized.csv",
+    "id": "Catalog No",
+    "yearKey": "Acquisition Year",
+    "query": "Acquisition Year < 9999 AND Latitude < 9999 AND Longitude < 9999 AND Region != Europe",
+    "cols": [
+      {"fromKey": "Catalog No", "toKey": "id"},
+      {"toKey": "url", "pattern": "https://anthro.amnh.org/anthropology/databases/common/image_dup.cfm?catno={id}"},
+      {"fromKey": "Region", "toKey": "region", "asIndex": 1}
+    ]
+  },
+
+  "sets": {
+    "laufer": {"query": "Donor CONTAINS Laufer AND Country CONTAINS China AND Acquisition Year < 1906"}
+  },
+
+  "positions": {
+    "start": {
+      "layout": "spheres",
+      "width": 16384, "height": 16384, "depth": 16384,
+      "cameraPosition": [0, 0, -1024]
+    },
+    "default": {
+      "zCol": "Acquisition Year",
+      "layout": "tunnel",
+      "width": 512, "height": 512, "depth": 65536,
+      "cameraPosition": [0, 0, -17080],
+      "labels": "zCol",
+      "defaultLabelPosition": [0.5, 0.667, 0.5],
+      "sounds": [
+        {"filename": "yearLabels.mp3", "spriteFilename": "yearLabels.json", "dimension": "z", "labels": "Acquisition Year", "maxInstances": 4},
+        {"filename": "click.mp3", "dimension": "z", "groupBy": "Acquisition Year", "quantities": true, "rootValue": 2.25, "filterBy": "region", "maxInstances": 20}
+      ]
+    }
+  },
+
+  "textures": {
+    "filenameKey": "Filename",
+    "imageDir": "E:/production/amnh/knight/images/{Region}/",
+    "maxWidth": 4096,
+    "minCellWidth": 1,
+    "maxCellWidth": 512,
+    "maxTextureFiles": 10,
+    "noImageValue": "no_image.jpg",
+    "defaultColor": [60, 60, 60],
+    "containsAlpha": 0
+  },
+
+  "content": {
+    "default": {
+      "text": "In its 150 year history, the American Museum of Natural History collected {count} cultural artifacts from all over the world"
+    },
+    "laufer": {
+      "set": "laufer",
+      "image": "https://lbry-web-007.amnh.org/digital/files/thumbnails/cd198760f782344a393abae73444b7d8.jpg",
+      "imageCaption": "Sacred dance of five lamas, China",
+      "imageCaptionUrl": "https://lbry-web-007.amnh.org/digital/items/show/29130",
+      "title": "Laufer China Expedition",
+      "html": "<p>Berthold Laufer led an expedition to China between 1901 and 1904. <a href=\"https://anthro.amnh.org/laufer_collection\">Read more</a> or <a href=\"https://lbry-web-007.amnh.org/digital/items/browse?advanced%5B0%5D%5Belement_id%5D=49&advanced%5B0%5D%5Btype%5D=is+exactly&advanced%5B0%5D%5Bterms%5D=Laufer+China+Expedition+%281901-1904%29\">Browse more photos from this expedition</a>.</p>"
+    }
+  },
+
+  "ui": {
+    "startTransitionDuration": 5000,
+    "transitionDuration": 1000,
+    "minAlpha": 0.0,
+
+    "menus": [
+      {
+        "id": "radio-buttons-region",
+        "type": "radioItems",
+        "label": "Filter by region",
+        "className": "radio-buttons radio-buttons-region",
+        "property": "region",
+        "parseType": "int"
+      }
+    ]
+  },
+
+  "sounds": {
+    "yearLabels": {
+      "src": "audio/xylophone-mp3/",
+      "filenames": ["C1.mp3", "D1.mp3", "E1.mp3", "F1.mp3", "G1.mp3", "A1.mp3", "B1.mp3", "C2.mp3", "D2.mp3", "E2.mp3", "F2.mp3", "G2.mp3", "A2.mp3", "B2.mp3", "C3.mp3", "D3.mp3", "E3.mp3", "F3.mp3", "G3.mp3", "A3.mp3", "B3.mp3", "C4.mp3", "D4.mp3", "E4.mp3", "F4.mp3", "G4.mp3", "A4.mp3", "B4.mp3", "C5.mp3", "D5.mp3", "E5.mp3", "F5.mp3", "G5.mp3", "A5.mp3", "B5.mp3", "C6.mp3"],
+      "spriteDuration": 400,
+      "db": -24,
+      "reverb": 80
+    }
+  }
+}
